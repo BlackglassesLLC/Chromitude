@@ -24,6 +24,7 @@
 
 	"permissions":
 	[
+        "idle",
 		"geolocation",
 		"tabs",
 		"unlimitedStorage",
