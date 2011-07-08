@@ -1,6 +1,6 @@
 {
-    "name": "Chromitude",
-	"version": "0.3.2",
+	"name": "Chromitude",
+	"version": "0.4.1",
 	
 	"description": "An unofficial Google Latitude Checkin App for Chrome.  Runs in the background.",
 
@@ -24,9 +24,9 @@
 
 	"permissions":
 	[
-        "idle",
 		"geolocation",
 		"tabs",
+		"idle",
 		"unlimitedStorage",
 		"notifications",
 		"http://*.google.com/",
