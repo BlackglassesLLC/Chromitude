@@ -24,13 +24,28 @@
         else
             localStorage["only_update_when_active"] = "off";
     }
+    function updateWatch(ele)
+    {
+        if(ele.checked)
+            localStorage["watchLoc"] = "on";
+        else
+            localStorage["watchLoc"] = "off";
+    }
     function save()
     {
         updateShowNotifs(document.getElementById("showNotif"));
         updateInt(document.getElementById("updateEveryInt"));
         updateIntType(document.getElementById("updateIntType"));
         updateWhenActive(document.getElementById("whenNotIdle"));
+        updateWatch(document.getElementById("watchLoc"));
         chrome.extension.sendRequest("updateInterval");
+    }
+    function toggleInt(ele)
+    {
+        if(ele.checked)
+            document.getElementById("intLabel").display = "none";
+        else
+            document.getElementById("intLabel").display = "inline";
     }
 </script>
 <style>
@@ -41,7 +56,7 @@
     <legend>Chromitude Options</legend>
     <label><input type="checkbox" id="showNotif" /> Show Notifications on Update</label><br />
     <label><input type="checkbox" id="whenNotIdle" /> Only Update Location when Not Idle</label><br />
-    <label><input type="checkbox" id="watchLoc" onclick="toggleInt()" /> Watch Changes in Location and Update Only When Changed <small>(BETA)</small></label>
+    <label><input type="checkbox" id="watchLoc" onclick="toggleInt(this)" /> Watch Changes in Location and Update Only When Changed <small>(BETA)</small></label><br />
     <label id="intLabel">Update Every <input type="number" id="updateEveryInt" size="2" /></label> <select id="updateIntType"><option value="h">hours</option><option value="m">minutes</option><option value="s">seconds</option></select><br />
     <span style="font-size:70%;">Note:  Your location will update on SAVE if Chromitude is currently turned On.</span><br />
     <div style="text-align:right;"><button onclick="self.close();">Close</button> <button onclick="save();self.close();">Save</button> <button onclick="save();">Apply</button></div>
@@ -53,6 +68,7 @@
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
 <script>
+    toggleInt(document.getElementById("watchLoc"));
     if(localStorage["only_update_when_active"] == "on") document.getElementById("whenNotIdle").checked = true;
     if(localStorage["show_notification"] == "on") document.getElementById("showNotif").checked = true;
     if(!localStorage["update_int"]) localStorage["update_int"] = 5;
