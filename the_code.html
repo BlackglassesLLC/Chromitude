@@ -2,7 +2,6 @@
 <script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
 <script type="text/javascript" src="chrome_ex_oauth.js"></script>
 <script>
-
 settings = 
 {
     oauth_domain: '891356443055.apps.googleusercontent.com',
@@ -10,6 +9,9 @@ settings =
     consumer_secret: 'SEEKRIT',
     app_name: 'Chromitude'
 };
+</script>
+<script type="text/javascript" src="settings.js"></script>
+<script>
 
 document.oauth = ChromeExOAuth.initBackgroundPage({
   'request_url': 'https://www.google.com/accounts/OAuthGetRequestToken',
