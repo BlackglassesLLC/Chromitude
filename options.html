@@ -41,7 +41,8 @@
     <legend>Chromitude Options</legend>
     <label><input type="checkbox" id="showNotif" /> Show Notifications on Update</label><br />
     <label><input type="checkbox" id="whenNotIdle" /> Only Update Location when Not Idle</label><br />
-    <label>Update Every <input type="number" id="updateEveryInt" size="2" /></label> <select id="updateIntType"><option value="h">hours</option><option value="m">minutes</option><option value="s">seconds</option></select><br />
+    <label><input type="checkbox" id="watchLoc" onclick="toggleInt()" /> Watch Changes in Location and Update Only When Changed <small>(BETA)</small></label>
+    <label id="intLabel">Update Every <input type="number" id="updateEveryInt" size="2" /></label> <select id="updateIntType"><option value="h">hours</option><option value="m">minutes</option><option value="s">seconds</option></select><br />
     <span style="font-size:70%;">Note:  Your location will update on SAVE if Chromitude is currently turned On.</span><br />
     <div style="text-align:right;"><button onclick="self.close();">Close</button> <button onclick="save();self.close();">Save</button> <button onclick="save();">Apply</button></div>
 </fieldset>
