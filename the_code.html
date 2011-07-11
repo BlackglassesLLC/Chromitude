@@ -27,7 +27,6 @@ document.lastIdleState = "active";
 
 setInterval(function() { chrome.idle.queryState((5 * 60 * 1000), function(newState)
 {
-    console.log(newState);
     if(localStorage["only_update_when_active"] == "on" && newState != document.lastIdleState)
     {
         if(newState == "active")
