@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
 <script type="text/javascript" src="chrome_ex_oauth.js"></script>
 <script>
@@ -63,10 +63,30 @@ function clearOurInterval()
     try { clearInterval(document.updateLatitude); } catch(e) { }
 }
 
+function clearWatch()
+{
+    navigator.geolocation.clearWatch(document.updateWatch);
+}
+
+function startWatch()
+{
+    if(!document.updateWatch)
+        document.updateWatch = navigator.geolocation.watchPosition(updatePosition);
+}
+
 function updateInterval()
 {
-    clearOurInterval();
-    startOurInterval();
+    if(localStorage["watchLoc"] != "on")
+    {
+        clearWatch();
+        clearOurInterval();
+        startOurInterval();
+    }
+    else
+    {
+        clearOurInterval();
+        startWatch();
+    }
 }
 
 function updateLocation()
@@ -75,37 +95,39 @@ function updateLocation()
 
     console.log("Updating Location.");
     // Update the User's Location.
-    navigator.geolocation.getCurrentPosition(function(pos)
-    {
-        // Got the location, now push it!
-        // pos.latitude, pos.longitude, pos.altitude, pos.accuracy, pos.altitudeAccuracy, pos.heading, pos.speed
-
-        var location =
-        {
-            "data": {
-                "kind": "latitude#location",
-                "timestampMs": pos.timestamp,
-                "latitude": pos.coords.latitude,
-                "longitude": pos.coords.longitude,
-                "accuracy": pos.coords.accuracy,
-                "speed": pos.coords.speed,
-                "altitude": pos.coords.altitude,
-                "altitudeAccuracy": pos.coords.altitudeAccuracy
-            }
-        };
-
-        var url = "https://www.googleapis.com/latitude/v1/currentLocation";
-        var request = {
-            'method': 'POST',
-            'headers': {
-                'Content-Type': 'application/json'
-            },
-            'parameters': {key: "AIzaSyCsAmNmY6qz8ibtX31mbPQOsC_AN6g-CxE"},
-            'body': JSON.stringify(location)
-        };
-        document.oauth.sendSignedRequest(url, function(data) { showUpdateNotification(); }, request);
-    });
+    navigator.geolocation.getCurrentPosition(updatePosition);
 };
+
+function updatePosition(pos)
+{
+    // Got the location, now push it!
+    // pos.latitude, pos.longitude, pos.altitude, pos.accuracy, pos.altitudeAccuracy, pos.heading, pos.speed
+
+    var location =
+    {
+        "data": {
+            "kind": "latitude#location",
+            "timestampMs": pos.timestamp,
+            "latitude": pos.coords.latitude,
+            "longitude": pos.coords.longitude,
+            "accuracy": pos.coords.accuracy,
+            "speed": pos.coords.speed,
+            "altitude": pos.coords.altitude,
+            "altitudeAccuracy": pos.coords.altitudeAccuracy
+        }
+    };
+
+    var url = "https://www.googleapis.com/latitude/v1/currentLocation";
+    var request = {
+        'method': 'POST',
+        'headers': {
+            'Content-Type': 'application/json'
+        },
+        'parameters': {key: "AIzaSyCsAmNmY6qz8ibtX31mbPQOsC_AN6g-CxE"},
+        'body': JSON.stringify(location)
+    };
+    document.oauth.sendSignedRequest(url, function(data) { showUpdateNotification(); }, request);
+}
 
 function stringify(parameters)
 {
