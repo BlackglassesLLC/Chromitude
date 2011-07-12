@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
 	"name": "Chromitude",
 	"version": "0.4.1",
+=======
+    "name": "Chromitude",
+	"version": "0.5",
+>>>>>>> 6410a094af359dd14b7b3b69683a3a37fa850096
 	
 	"description": "An unofficial Google Latitude Checkin App for Chrome.  Runs in the background.",
 

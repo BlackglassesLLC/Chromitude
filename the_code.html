@@ -1,8 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
 <script type="text/javascript" src="chrome_ex_oauth.js"></script>
 <script>
-
 settings = 
 {
 	oauth_domain: '891356443055.apps.googleusercontent.com',
@@ -10,6 +9,9 @@ settings =
 	consumer_secret: 'SEEKRIT',
 	app_name: 'Chromitude'
 };
+</script>
+<script type="text/javascript" src="settings.js"></script>
+<script>
 
 document.oauth = ChromeExOAuth.initBackgroundPage({
   'request_url': 'https://www.google.com/accounts/OAuthGetRequestToken',
@@ -27,6 +29,7 @@ document.lastIdleState = "active";
 
 setInterval(function() { chrome.idle.queryState((5 * 60 * 1000), function(newState)
 {
+<<<<<<< HEAD
 	if(localStorage["only_update_when_active"] == "on" && newState != document.lastIdleState)
 	{
 		if(newState == "active")
@@ -42,6 +45,23 @@ setInterval(function() { chrome.idle.queryState((5 * 60 * 1000), function(newSta
 			console.log("Transitioned to Idle");
 		}
 	}	
+=======
+    if(localStorage["only_update_when_active"] == "on" && newState != document.lastIdleState)
+    {
+        if(newState == "active")
+        {
+            startOurInterval();
+            document.lastIdleState = "active";
+            console.log("Transitioned to Active");
+        }
+        else
+        {
+            clearOurInterval();
+            document.lastIdleState = "idle";
+            console.log("Transitioned to Idle");
+        }
+    }   
+>>>>>>> 6410a094af359dd14b7b3b69683a3a37fa850096
 
 })},1000);
 
@@ -62,14 +82,41 @@ function clearOurInterval()
 	try { clearInterval(document.updateLatitude); } catch(e) { }
 }
 
+function clearWatch()
+{
+    navigator.geolocation.clearWatch(document.updateWatch);
+    document.updateWatch = false;
+}
+
+function startWatch()
+{
+    if(!document.updateWatch)
+        document.updateWatch = navigator.geolocation.watchPosition(updatePosition);
+}
+
 function updateInterval()
 {
+<<<<<<< HEAD
 	clearOurInterval();
 	startOurInterval();
+=======
+    if(localStorage["watchLoc"] != "on")
+    {
+        clearWatch();
+        clearOurInterval();
+        startOurInterval();
+    }
+    else
+    {
+        clearOurInterval();
+        startWatch();
+    }
+>>>>>>> 6410a094af359dd14b7b3b69683a3a37fa850096
 }
 
 function updateLocation()
 {
+<<<<<<< HEAD
 	if(localStorage["state"] != "on") return;
 
 	console.log("Updating Location.");
@@ -104,7 +151,45 @@ function updateLocation()
 		};
 		document.oauth.sendSignedRequest(url, function(data) { showUpdateNotification(); }, request);
 	});
+=======
+    if(localStorage["state"] != "on") return;
+
+    console.log("Updating Location.");
+    // Update the User's Location.
+    navigator.geolocation.getCurrentPosition(updatePosition,function() { },{timeout:calculate_time()});
+>>>>>>> 6410a094af359dd14b7b3b69683a3a37fa850096
 };
+
+function updatePosition(pos)
+{
+    // Got the location, now push it!
+    // pos.latitude, pos.longitude, pos.altitude, pos.accuracy, pos.altitudeAccuracy, pos.heading, pos.speed
+
+    var location =
+    {
+        "data": {
+            "kind": "latitude#location",
+            "timestampMs": pos.timestamp,
+            "latitude": pos.coords.latitude,
+            "longitude": pos.coords.longitude,
+            "accuracy": pos.coords.accuracy,
+            "speed": pos.coords.speed,
+            "altitude": pos.coords.altitude,
+            "altitudeAccuracy": pos.coords.altitudeAccuracy
+        }
+    };
+
+    var url = "https://www.googleapis.com/latitude/v1/currentLocation";
+    var request = {
+        'method': 'POST',
+        'headers': {
+            'Content-Type': 'application/json'
+        },
+        'parameters': {key: "AIzaSyCsAmNmY6qz8ibtX31mbPQOsC_AN6g-CxE"},
+        'body': JSON.stringify(location)
+    };
+    document.oauth.sendSignedRequest(url, function(data) { showUpdateNotification(); }, request);
+}
 
 function stringify(parameters)
 {
