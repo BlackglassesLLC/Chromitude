@@ -1,6 +1,6 @@
 {
 	"name": "Chromitude",
-	"version": "0.5",
+	"version": "0.6",
 	
 	"description": "An unofficial Google Latitude Checkin App for Chrome.  Runs in the background.",
 
@@ -11,9 +11,7 @@
 	"icons":
 	{
 		"128": "icons/128-on.png",
-		"64":  "icons/64-on.png",
-		"32":  "icons/32-on.png",
-		"16":  "icons/16-on.png"
+		"32":  "icons/32-on.png"
 	},
 
 	"browser_action":
