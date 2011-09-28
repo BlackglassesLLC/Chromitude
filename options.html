@@ -31,6 +31,33 @@
         else
             localStorage["watchLoc"] = "off";
     }
+    /** Parses the string as a pair of floats.
+     *
+     * The returned value is similar to the object returned by
+     * navigator.geolocation.getCurrentPosition. If the string
+     * cannot be parsed, returns null.
+     */
+    function parseFixedLocation(fixed_location) {
+        var optional_decimal_number = "(-?\\d+(?:\\.\\d*)?|-?\\.\\d+)"
+          , S = "\\s*"
+          , re = new RegExp("^" + S + optional_decimal_number + S + "," + optional_decimal_number + S + "$")
+          , m = re.exec(fixed_location)
+          , lat = m != null ? parseFloat(m[1]) : NaN
+          , lon = m != null ? parseFloat(m[2]) : NaN;
+        if (! isNaN(lat) && ! isNaN(lon))
+            return {coords: {latitude: lat, longitude: lon}};
+        else
+            return null;
+    }
+    /** Converts the fixed location into a float, float string. */
+    function unparseFixedLocation(fixed_location_obj) {
+        if (null == fixed_location_obj) return "";
+        return fixed_location_obj.coords.latitude + "," + fixed_location_obj.coords.longitude;
+    }
+    function updateFixedLocation(use_fixed_location, fixed_location) {
+        localStorage["use_fixed_location"] = ! ! use_fixed_location;
+        localStorage["fixed_location"] = JSON.stringify(parseFixedLocation(fixed_location));
+    }
     function save()
     {
         updateShowNotifs(document.getElementById("showNotif"));
@@ -38,6 +65,7 @@
         updateIntType(document.getElementById("updateIntType"));
         updateWhenActive(document.getElementById("whenNotIdle"));
         updateWatch(document.getElementById("watchLoc"));
+        updateFixedLocation(document.getElementById("should_use_fixed_location").checked, document.getElementById("fixed_location").value);
         chrome.extension.sendRequest("updateInterval");
     }
     function toggleInt(ele)
@@ -57,9 +85,16 @@
     <label><input type="checkbox" id="showNotif" /> Show Notifications on Update</label><br />
     <label><input type="checkbox" id="watchLoc" onclick="toggleInt(this)" /> Update Only When Location Changes <small>(BETA)</small></label><br />
     <span id="intStuff">
-    <label><input type="checkbox" id="whenNotIdle" /> Only Update Location when Not Idle</label><br />
-    <label>Update Every <input type="number" id="updateEveryInt" size="2" /></label> <select id="updateIntType"><option value="h">hours</option><option value="m">minutes</option><option value="s">seconds</option></select><br />
-     </span>
+        <label><input type="checkbox" id="whenNotIdle" /> Only Update Location when Not Idle</label><br />
+        <label>Update Every <input type="number" id="updateEveryInt" size="2" /></label> <select id="updateIntType"><option value="h">hours</option><option value="m">minutes</option><option value="s">seconds</option></select><br />
+        Use
+        <label><input type="radio" name="geolocate-or-fixed_location" id="should_use_geolocation" checked="checked">geolocation</label> or
+        <label><input type="radio" name="geolocate-or-fixed_location" id="should_use_fixed_location">fixed location</label><span id="fixedLocationStuff">:
+            <br/>
+            <label>lat,lon:<input id=fixed_location></label>
+        </span>
+        <br/>
+    </span>
     <span style="font-size:70%;">Note:  Your location will update on SAVE if Chromitude is currently turned On.</span><br />
     <div style="text-align:right;"><button onclick="self.close();">Close</button> <button onclick="save();self.close();">Save</button> <button onclick="save();">Apply</button></div>
 </fieldset>
@@ -78,4 +113,22 @@
     document.getElementById("updateEveryInt").value = localStorage["update_int"];
     if(!localStorage["update_type"]) localStorage["update_type"] = "m";
     document.getElementById("updateIntType").value = localStorage["update_type"];
+    document.getElementById("should_use_geolocation").checked = ! localStorage["use_fixed_location"];
+    document.getElementById("should_use_fixed_location").checked = ! ! localStorage["use_fixed_location"];
+    document.getElementById("fixed_location").value =
+        localStorage["fixed_location"] != null && localStorage["fixed_location"] !== "" ?
+        unparseFixedLocation(JSON.parse(localStorage["fixed_location"])) :
+        "";
+    document.getElementById("fixed_location").addEventListener("input", function(e) {
+        var valid = parseFixedLocation(e.target.value) != null;
+        e.target.style.color = valid ? "" : "red";
+    }, false);
+    function toggleFixedLocationDisplay() {
+        document.getElementById("fixedLocationStuff").style.display =
+            document.getElementById("should_use_fixed_location").checked ?
+            "" :
+            "none";
+    }
+    document.getElementById("should_use_fixed_location").addEventListener("click", toggleFixedLocationDisplay, false);
+    document.getElementById("should_use_geolocation").addEventListener("click", toggleFixedLocationDisplay, false);
 </script>

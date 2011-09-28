@@ -96,8 +96,16 @@ function updateLocation()
     if(localStorage["state"] != "on") return;
 
     console.log("Updating Location.");
+
     // Update the User's Location.
-    navigator.geolocation.getCurrentPosition(updatePosition,function() { },{timeout:calculate_time()});
+    if (localStorage["use_fixed_location"] && localStorage["fixed_location"]) {
+        var location = JSON.parse(localStorage["fixed_location"]);
+        location.timestamp = Math.floor(+new Date);
+        location.accuracy = 10;
+        updatePosition(location);
+    } else {
+        navigator.geolocation.getCurrentPosition(updatePosition,function() { },{timeout:calculate_time()});
+    }
 };
 
 function updatePosition(pos)
