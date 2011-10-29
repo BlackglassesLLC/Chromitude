@@ -1,4 +1,17 @@
 <!DOCTYPE html>
-<script src="chrome_ex_oauth.js"></script>
-<script src="chrome_ex_oauthsimple.js"></script>
+<script src="/oauth2/oauth2.js"></script>
 <script src="settings.js"></script>
+<script>
+
+var googleAuth = new OAuth2('google',{
+	client_id: settings.consumer_key,
+	client_secret: settings.consumer_secret,
+	api_scope: 'https://www.googleapis.com/auth/latitude.current.best https://maps.googleapis.com/maps/api/place/'
+});
+
+googleAuth.authorize(function()
+{
+	// Ready for Action
+});
+
+</script>

@@ -1,10 +1,10 @@
 {
 	"name": "Chromitude",
-	"version": "0.6",
+	"version": "2.0",
 	
 	"description": "An unofficial Google Latitude Checkin App for Chrome.  Runs in the background.",
 
-	"background_page": "the_code.html",
+	"background_page": "chromitude.html",
 
 	"options_page": "options.html",
 
