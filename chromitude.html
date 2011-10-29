@@ -9,9 +9,40 @@ var googleAuth = new OAuth2('google',{
 	api_scope: 'https://www.googleapis.com/auth/latitude.current.best https://maps.googleapis.com/maps/api/place/'
 });
 
+var clientSettings = {
+	get: function(setting)
+	{
+		return localStorage[setting];
+	},
+	put: function(setting,value,ifnotexists)
+	{
+		if(!(ifnotexists && this.exists(setting)))
+			localStorage[setting] = value;
+		return localStorage[setting];
+	},
+	exists: function(setting)
+	{
+		if(localStorage[setting] == undefined) return false;
+		else return true;
+	}
+	// Defaults
+	this.put("state","on",true);
+	if(!this.exists("watchLoc") || this.get("watchLoc") == "on")
+		this.put("watch_location","on",true);
+	else
+		this.put("watch_location","off",true);
+	localStorage.removeItem("watchLoc"); // Renamed to watch_location.  Cleanup from v1.
+	this.put("only_update_when_active","on",true);
+	this.put("show_notification","off",true);
+	this.put("update_int","5",true);
+	this.put("update_type","m",true);
+	this.put("show_donate","on",true);
+	this.put("use_fixed_location","off",true);
+};
+
 googleAuth.authorize(function()
 {
-	// Ready for Action
+	
 });
 
 </script>
