@@ -19,6 +19,13 @@
 		"default_icon": "icons/32-off.png",
 		"default_title": "Turn Chromitude On"
 	},
+	
+	"content_scripts":
+	[{
+		"matches": ["http://www.google.com/robots.txt*],
+		"js": ["oauth2/oauth2_inject.js],
+		"run_at": "document_start"
+	}],
 
 	"permissions":
 	[
@@ -30,6 +37,7 @@
 		"http://*.google.com/",
 		"https://*.google.com/",
 		"http://*.googleapis.com/",
-		"https://*.googleapis.com/"
+		"https://*.googleapis.com/",
+		"https://accounts.google.com/o/oauth2/token"
 	]
 }
