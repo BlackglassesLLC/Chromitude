@@ -23,7 +23,6 @@
 			chrome.extension.onRequest.addListener(
 				function(request,sender,sendResponse)
 				{
-					console.log(request.type,'store.' + storeStuff.name + '.callwatch');
 					if(request.type && request.type == 'store.' + storeStuff.name + '.callwatch')
 					{
 						// Callback for Watchers
@@ -32,7 +31,7 @@
 						{
 							var val = storeStuff.get(name);
 							for(i = 0;i < storeStuff.watchers[name].length;++i)
-								storeStuff.watchers[name][i](name);
+								storeStuff.watchers[name][i](val);
 						}
 					}
 				}

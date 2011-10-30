@@ -26,6 +26,7 @@ function changedSetupAffectingVariable()
 
 clientSettings.watch("use_fixed_location",changedSetupAffectingVariable);
 clientSettings.watch("use_highest_accuracy",changedSetupAffectingVariable);
+clientSettings.watch("exp_use_checkins",function(value) { if(value) checkinRequest(); });
 
 var googleAuth = new OAuth2('google',{
 	client_id: settings.consumer_key,
@@ -95,23 +96,28 @@ function runSetup()
 			// Get Checkin Data
 			if(!clientSettings.get("exp_use_checkins")) return; // Don't Use Checkins
 			
-			xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function()
-			{
-				if(xhr.readyState == 4 && xhr.status == 200)
-				{
-					response = JSON.parse(xhr.responseText);
-					document.places = response.results;
-				};
-			};
-			xhr.open('GET','https://maps.googleapis.com/maps/api/place/search/json?oauth_token=' + googleAuth.getAccessToken() + '&sensor=true&key=' + settings.simple_key + '&location=' + document.lastPosition.coords.latitude + ',' + document.lastPosition.coords.longitude + '&radius=' + (document.lastPosition.coords.accuracy - 0 + 100));
-			xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken());
-			xhr.send();
+			checkinRequest();
 			
 		});
 		
 	},function() { }, { enableHighAccuracy: clientSettings.get("use_highest_accuracy") });
 }
+
+function checkinRequest()
+{
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4 && xhr.status == 200)
+		{
+			response = JSON.parse(xhr.responseText);
+			document.places = response.results;
+		};
+	};
+	xhr.open('GET','https://maps.googleapis.com/maps/api/place/search/json?oauth_token=' + googleAuth.getAccessToken() + '&sensor=true&key=' + settings.simple_key + '&location=' + document.lastPosition.coords.latitude + ',' + document.lastPosition.coords.longitude + '&radius=' + (document.lastPosition.coords.accuracy - 0 + 100));
+	xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken());
+	xhr.send();
+};
 
 function checkIn(reference)
 {
