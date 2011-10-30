@@ -14,7 +14,7 @@
             $("icon").set("src", icon);
             $("settings-label").set("text", (chrome.i18n.getMessage("settings") || "Settings"));
             $("search-label").set("text", (chrome.i18n.getMessage("search") || "Search"));
-            $("search").set("placeholder", (chrome.i18n.getMessage("searchPlaceholder"));
+            $("search").set("placeholder", (chrome.i18n.getMessage("searchPlaceholder")));
             
             this.tab = new Tab($("tab-container"), $("content"));
             this.search = new Search($("search"), $("search-result-container"));
