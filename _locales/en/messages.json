@@ -44,7 +44,21 @@
 		"description": "Displayed in a Toast Notification when the user's location has been updated."
 	},
 	
-	
+	"settings":
+	{
+		"message": "Settings",
+		"description": "Settings Page Header"
+	},
+	"settings_search":
+	{
+		"message": "Search",
+		"description": "Settings Page Search Label"
+	},
+	"settings_searchPlaceholder":
+	{
+		"message": "Search...",
+		"description": "Settings Page Search Placeholder"
+	},
 	"generalTab":
 	{
 		"message": "General",

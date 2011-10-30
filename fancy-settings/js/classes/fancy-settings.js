@@ -12,9 +12,9 @@
             $("title").set("text", name);
             $("favicon").set("href", icon);
             $("icon").set("src", icon);
-            $("settings-label").set("text", (i18n.get("settings") || "Settings"));
-            $("search-label").set("text", (i18n.get("search") || "Search"));
-            $("search").set("placeholder", (i18n.get("search") || "Search") + "...");
+            $("settings-label").set("text", (chrome.i18n.getMessage("settings") || "Settings"));
+            $("search-label").set("text", (chrome.i18n.getMessage("search") || "Search"));
+            $("search").set("placeholder", (chrome.i18n.getMessage("searchPlaceholder"));
             
             this.tab = new Tab($("tab-container"), $("content"));
             this.search = new Search($("search"), $("search-result-container"));
