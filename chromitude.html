@@ -106,9 +106,23 @@ function runSetup()
 			};
 			xhr.open('GET','https://maps.googleapis.com/maps/api/place/search/json?sensor=true&key=' + settings.simple_key + '&location=' + document.lastPosition.coords.latitude + ',' + document.lastPosition.coords.longitude + '&radius=' + (document.lastPosition.coords.accuracy - 0 + 100));
 			xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken());
+			xhr.send();
+			
 		});
 		
 	},function() { }, { enableHighAccuracy: highAccuracy });
+}
+
+function checkIn(reference)
+{
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4 && xhr.status == 200) console.log('Check In Result',JSON.parse(xhr.responseText));
+	};
+	xhr.open('POST','https://maps.googleapis.com/maps/api/place/check-in/json?sensor=true&key=' + settings.simple_key);
+	xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken());
+	xhr.send(JSON.stringify({ 'reference': reference }));
 }
 
 function updatePosition(pos,success)
