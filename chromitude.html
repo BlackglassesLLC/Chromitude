@@ -43,13 +43,16 @@ function updateAction()
 		chrome.browserAction.setIcon({path:"icons/32-on.png"});
 		chrome.browserAction.setTitle({title:chrome.i18n.getMessage("turnOff")});
 	}
+	else if(clientSettings.get("use_fixed_location"))
+	{
+		chrome.browserAction.setIcon({path:"icons/32-off.png"});
+		chrome.browserAction.setTitle({title:chrome.i18n.getMessage("clickToUpdate")});
+	}
 	else
 	{
 		chrome.browserAction.setIcon({path:"icons/32-off.png"});
 		chrome.browserAction.setTitle({title:chrome.i18n.getMessage("turnOn")});
 	}
-	if(clientSettings.get("use_fixed_location"))
-		chrome.browserAction.setTitle({title:chrome.i18n.getMessage("clickToUpdate")});
 }
 
 function toggleState()
@@ -71,14 +74,21 @@ function runSetup()
 
 	if(clientSettings.get("use_fixed_location"))
 	{	
-		var location = clientSettings.get("fixed_location");
-		location.timestamp = Math.floor(+new Date);
-		location.accuracy = 10;
-		document.lastPosition = location;
-		updatePosition(location);
-		
-		clientSettings.set("state",false);
-		updateAction();
+		var coords = clientSettings.get("fixed_location").split(',');
+		if(coords[0] && coords[1])
+		{
+			location.coords.latitude = coords[0];
+			location.coords.longitude = coords[1];
+			location.timestamp = Math.floor(+new Date);
+			location.coords.accuracy = 10;
+			document.lastPosition = location;
+			updatePosition(location);
+		}
+		setTimeout(function()
+		{
+			clientSettings.set("state",false);
+			updateAction();
+		},1000);
 		
 		return;
 	};

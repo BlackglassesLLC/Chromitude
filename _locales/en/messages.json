@@ -86,6 +86,11 @@
 		"message": "Experimental Features",
 		"description": "Experimental Features Tab in Settings"
 	},
+	"experimentalFeaturesTab_description":
+	{
+		"message": "Experimental Features are those slightly buggy, not yet complete, or essentially useless features that are not yet ready for use.  Some may only be accessible by using the developer console within the extension itself.  Clearly, these aren't for everyone but are available here for people wanting to tinker with the code of the extension itself.",
+		"description": "Description of what experimental features are."
+	},
 	"experimentalFeaturesTab_checkinsGroup":
 	{
 		"message": "Check-Ins",

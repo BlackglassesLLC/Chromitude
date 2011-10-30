@@ -33,6 +33,11 @@ this.manifest = {
 		},
 		{
 			"tab": chrome.i18n.getMessage("experimentalFeaturesTab"),
+			"type": "description",
+			"text": chrome.i18n.getMessage("experimentalFeaturesTab_description")
+		},
+		{
+			"tab": chrome.i18n.getMessage("experimentalFeaturesTab"),
 			"group": chrome.i18n.getMessage("experimentalFeaturesTab_checkinsGroup"),
 			"name": "exp_use_checkins",
 			"type": "checkbox",
