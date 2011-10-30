@@ -36,13 +36,32 @@ var clientSettings = {
 	this.put("show_notification","off",true);
 	this.put("update_int","5",true);
 	this.put("update_type","m",true);
-	this.put("show_donate","on",true);
+	this.put("has_shown_donate","false",true);
 	this.put("use_fixed_location","off",true);
+	this.put("has_alerted_v2","false",true);
 };
 
 googleAuth.authorize(function()
 {
 	
 });
+
+function updatePosition(pos)
+{
+	var location =
+	{
+		"data":
+		{
+			"kind": "latitude#location",
+			"timestampMs": pos.timestamp,
+			"latitude": pos.coords.latitude,
+			"longitude": pos.coords.longitude,
+			"accuracy": pos.coords.accuracy,
+			"speed": pos.coords.speed,
+			"altitude": pos.coords.altitude,
+			"altitudeAccuracy": pos.coords.altitudeAccuracy
+		}
+	};
+}
 
 </script>
