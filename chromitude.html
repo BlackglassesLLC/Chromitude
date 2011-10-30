@@ -104,7 +104,7 @@ function runSetup()
 					document.places = response.results;
 				};
 			};
-			xhr.open('GET','https://maps.googleapis.com/maps/api/place/search/json?sensor=true&key=' + settings.simple_key + '&location=' + document.lastPosition.coords.latitude + ',' + document.lastPosition.coords.longitude + '&radius=' + (document.lastPosition.coords.accuracy - 0 + 100));
+			xhr.open('GET','https://maps.googleapis.com/maps/api/place/search/json?oauth_token=' + googleAuth.getAccessToken() + '&sensor=true&key=' + settings.simple_key + '&location=' + document.lastPosition.coords.latitude + ',' + document.lastPosition.coords.longitude + '&radius=' + (document.lastPosition.coords.accuracy - 0 + 100));
 			xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken());
 			xhr.send();
 			
@@ -120,7 +120,7 @@ function checkIn(reference)
 	{
 		if(xhr.readyState == 4 && xhr.status == 200) console.log('Check In Result',JSON.parse(xhr.responseText));
 	};
-	xhr.open('POST','https://maps.googleapis.com/maps/api/place/check-in/json?sensor=true&key=' + settings.simple_key);
+	xhr.open('POST','https://maps.googleapis.com/maps/api/place/check-in/json?oauth_token=' + googleAuth.getAccessToken() + '&sensor=true&key=' + settings.simple_key);
 	xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken());
 	xhr.send(JSON.stringify({ 'reference': reference }));
 }
