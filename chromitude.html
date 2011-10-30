@@ -7,7 +7,7 @@
 var googleAuth = new OAuth2('google',{
 	client_id: settings.consumer_key,
 	client_secret: settings.consumer_secret,
-	api_scope: 'https://www.googleapis.com/auth/latitude.current.best'
+	api_scope: 'https://www.googleapis.com/auth/latitude.current.best http://maps.google.com/maps/feeds/'
 });
 
 var clientSettings = new function() {
@@ -40,20 +40,45 @@ var clientSettings = new function() {
 
 googleAuth.authorize(runSetup);
 
+function updateAction()
+{
+	if(clientSettings.get("state") == "on")
+	{
+		chrome.browserAction.setIcon({path:"icons/32-on.png"});
+		chrome.browserAction.setTitle({title:"Turn Chromitude Off"});
+	}
+	else
+	{
+		chrome.browserAction.setIcon({path:"icons/32-off.png"});
+		chrome.browserAction.setTitle({title:"Turn Chromitude On"});
+	}
+}
+
+function toggleState()
+{
+	if(clientSettings.get("state") == "on")
+		clientSettings.put("state","off");
+	else
+		clientSettings.put("state","on");
+	runSetup();
+}
+
 function runSetup()
 {
+	updateAction();
+
 	if(document.updateWatch) navigator.geolocation.clearWatch(document.updateWatch);
+	
+	if(clientSettings.get("state") == "off") { document.lastPosition = undefined;return; }
 
 	if(clientSettings.get("use_fixed_location") == "on")
 	{	
-		if(clientSettings.get("state") == "on")
-		{
-			var location = JSON.parse(clientSettings.get("fixed_location"));
-			location.timestamp = Math.floor(+new Date);
-			location.accuracy = 10;
-			document.lastPosition = location;
-			updatePosition(location);
-		}
+		var location = JSON.parse(clientSettings.get("fixed_location"));
+		location.timestamp = Math.floor(+new Date);
+		location.accuracy = 10;
+		document.lastPosition = location;
+		updatePosition(location);
+		
 		return;
 	};
 	
@@ -62,20 +87,25 @@ function runSetup()
 	
 	document.updateWatch = navigator.geolocation.watchPosition(function(pos)
 	{
-		// If we're not on
-		if(!(clientSettings.get("state") == "on"))
-		{
-			document.lastPosition = undefined;
-		}
 		
 		// If for some reason its the same as the last one, exit out of the function
-		if(pos == document.lastPosition) return;
+		if(document.lastPosition && pos.coords == document.lastPosition.coords) return;
 		document.lastPosition = pos;
 		
 		// Update the Position
 		updatePosition(pos,function(response)
 		{
-			
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function()
+			{
+				if(xhr.readyState == 4 && xhr.status == 200)
+				{
+					response = JSON.parse(xhr.responseText);
+					document.places = response.results;
+				};
+			};
+			xhr.open('GET','https://maps.googleapis.com/maps/api/place/search/json?sensor=true&key=' + settings.simple_key + '&location=' + document.lastPosition.coords.latitude + ',' + document.lastPosition.coords.longitude + '&radius=' + (document.lastPosition.coords.accuracy - 0 + 100));
+			xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken());
 		});
 		
 	},function() { }, { enableHighAccuracy: highAccuracy });
@@ -108,5 +138,7 @@ function updatePosition(pos,success)
 	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.send(JSON.stringify(location));
 }
+
+chrome.browserAction.onClicked.addListener(function(tab) { toggleState(); });
 
 </script>
