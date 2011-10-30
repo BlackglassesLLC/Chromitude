@@ -1,0 +1,36 @@
+{
+	"extensionName":
+	{
+		"message": "Chromitude",
+		"description": "Name of the Extension"
+	},
+	"description":
+	{
+		"message": "An unofficial Google Latitude Checkin App for Chrome.  Runs in the background.",
+		"description": "A Description of the Extension"
+	},
+	"turnOn":
+	{
+		"message": "Turn $CHROMITUDE$ on",
+		"description": "Turn on message for Chromitude icon tooltip",
+		"placeholders":
+		{
+			"chromitude":
+			{
+				"content": "Chromitude"
+			}
+		}
+	},
+	"turnOff":
+	{
+		"message": "Turn $CHROMITUDE$ off",
+		"description": "Turn off message for Chromitude icon tooltip",
+		"placeholders":
+		{
+			"chromitude":
+			{
+				"content": "Chromitude"
+			}
+		}
+	}
+}

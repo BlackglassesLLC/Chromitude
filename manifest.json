@@ -1,8 +1,8 @@
 {
-	"name": "Chromitude",
+	"name": "__MSG_extensionName__,
 	"version": "1.0",
 	
-	"description": "An unofficial Google Latitude Checkin App for Chrome.  Runs in the background.",
+	"description": "__MSG_description__",
 
 	"background_page": "chromitude.html",
 

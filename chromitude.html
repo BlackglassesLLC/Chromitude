@@ -45,12 +45,12 @@ function updateAction()
 	if(clientSettings.get("state") == "on")
 	{
 		chrome.browserAction.setIcon({path:"icons/32-on.png"});
-		chrome.browserAction.setTitle({title:"Turn Chromitude Off"});
+		chrome.browserAction.setTitle({title:chrome.i18n.getMessage("turnOff")});
 	}
 	else
 	{
 		chrome.browserAction.setIcon({path:"icons/32-off.png"});
-		chrome.browserAction.setTitle({title:"Turn Chromitude On"});
+		chrome.browserAction.setTitle({title:chrome.i18n.getMessage("turnOn")});
 	}
 }
 
