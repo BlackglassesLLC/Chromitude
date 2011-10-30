@@ -35,14 +35,53 @@ var clientSettings = new function() {
 	this.put("has_shown_donate","false",true);
 	this.put("use_fixed_location","off",true);
 	this.put("has_alerted_v2","false",true);
+	this.put("use_highest_accuracy","on",true);
 };
 
-googleAuth.authorize(function()
-{
-	
-});
+googleAuth.authorize(runSetup);
 
-function updatePosition(pos)
+function runSetup()
+{
+	if(document.updateWatch) navigator.geolocation.clearWatch(document.updateWatch);
+
+	if(clientSettings.get("use_fixed_location") == "on")
+	{	
+		if(clientSettings.get("state") == "on")
+		{
+			var location = JSON.parse(clientSettings.get("fixed_location"));
+			location.timestamp = Math.floor(+new Date);
+			location.accuracy = 10;
+			document.lastPosition = location;
+			updatePosition(location);
+		}
+		return;
+	};
+	
+	if(clientSettings.get("use_highest_accuracy") == "on") highAccuracy = true;
+	else highAccuracy = false;
+	
+	document.updateWatch = navigator.geolocation.watchPosition(function(pos)
+	{
+		// If we're not on
+		if(!(clientSettings.get("state") == "on"))
+		{
+			document.lastPosition = undefined;
+		}
+		
+		// If for some reason its the same as the last one, exit out of the function
+		if(pos == document.lastPosition) return;
+		document.lastPosition = pos;
+		
+		// Update the Position
+		updatePosition(pos,function(response)
+		{
+			
+		});
+		
+	},function() { }, { enableHighAccuracy: highAccuracy });
+}
+
+function updatePosition(pos,success)
 {
 	var location =
 	{
@@ -59,7 +98,15 @@ function updatePosition(pos)
 		}
 	};
 	
-	
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4 && xhr.status == 200) success(JSON.parse(xhr.responseText));
+	};
+	xhr.open('POST','https://www.googleapis.com/latitude/v1/currentLocation?sensor=true&key=' + settings.simple_key + '&oauth_token=' + googleAuth.getAccessToken());
+	xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken());
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify(location));
 }
 
 </script>
