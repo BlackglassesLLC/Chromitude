@@ -1,0 +1,155 @@
+{
+	"extensionName":
+	{
+		"message": "クロミテゥード",
+		"description": "Name of the Extension"
+	},
+	"description":
+	{
+		"message": "An unofficial Google Latitude Checkin App for Chrome.  Runs in the background.",
+		"description": "A Description of the Extension"
+	},
+	"turnOn":
+	{
+		"message": "Turn $CHROMITUDE$ on",
+		"description": "Turn on message for Chromitude icon tooltip",
+		"placeholders":
+		{
+			"chromitude":
+			{
+				"content": "Chromitude"
+			}
+		}
+	},
+	"turnOff":
+	{
+		"message": "Turn $CHROMITUDE$ off",
+		"description": "Turn off message for Chromitude icon tooltip",
+		"placeholders":
+		{
+			"chromitude":
+			{
+				"content": "Chromitude"
+			}
+		}
+	},
+	"clickToUpdate":
+	{
+		"message": "Click to update your location",
+		"description": "When a user opts in to using a fixed location, this tooltip will occur, with the Chromitude Icon always appearing 'off' by default."
+	},
+	"locationHasBeenUpdated":
+	{
+		"message": "Your location has been updated.",
+		"description": "Displayed in a Toast Notification when the user's location has been updated."
+	},
+	
+	
+	"generalTab":
+	{
+		"message": "General",
+		"description": "General Settings tab"
+	},
+	"generalTab_accuracyGroup":
+	{
+		"message": "Accuracy",
+		"description": "Accuracy Group name"
+	},
+	"generalTab_accuracyGroup_highAccuracyLabel":
+	{
+		"message": "Use the Highest Available Accuracy (May use more battery life)",
+		"description": "Enable GPS Sensor if available.  Should note that it will take battery life."
+	},
+	"generalTab_notificationsGroup":
+	{
+		"message": "Notifications",
+		"description": "Notification Group name"
+	},
+	"generalTab_notificationsGroup_notifyOnUpdateLabel":
+	{
+		"message": "Notify me when my location is updated",
+		"description": "Checkbox to notify a user when their location is updated via a toast notification"
+	},
+	"generalTab_fixedLocationGroup":
+	{
+		"message": "Fixed Location",
+		"description": "Group Name for settings indicative of a stationary, fixed position."
+	},
+	"generalTab_fixedLocationGroup_description":
+	{
+		"message": "Setting a fixed location will disable watching for updates when your location changes.  Instead, this allows you to set a specific latitude and longitude of where you are located and changes the Chromitude icon in the extension bar from turning Chromitude on and off to updating your location to the specified coordinates.",
+		"description": "A description of how fixed location works and why one would use it."
+	},
+	"generalTab_fixedLocationGroup_checkboxLabel":
+	{
+		"message": "Use a fixed location instead of polling for new locations",
+		"description": "Checkbox for enabling fixed location."
+	},
+	"generalTab_fixedLocationGroup_locationLabel":
+	{
+		"message": "Coordinates:",
+		"description": "Prompt for the coordinates of a fixed location."
+	},
+	"generalTab_fixedLocationGroup_locationPlaceholder":
+	{
+		"message": "longitude,latitude",
+		"description": "Placeholder text to guide the user on what to enter for a fixed location."
+	},
+	
+	"experimentalFeaturesTab":
+	{
+		"message": "Experimental Features",
+		"description": "Experimental Features Tab in Settings"
+	},
+	"experimentalFeaturesTab_description":
+	{
+		"message": "Experimental Features are those slightly buggy, not yet complete, or essentially useless features that are not yet ready for use.  Some may only be accessible by using the developer console within the extension itself.  Clearly, these aren't for everyone but are available here for people wanting to tinker with the code of the extension itself.",
+		"description": "Description of what experimental features are."
+	},
+	"experimentalFeaturesTab_checkinsGroup":
+	{
+		"message": "Check-Ins",
+		"description": "Group Name for Check-Ins"
+	},
+	"experimentalFeaturesTab_checkinsGroup_checkboxLabel":
+	{
+		"message": "Enable Check-In Support",
+		"description": "Checkbox for enabling check-in support"
+	},
+	"experimentalFeaturesTab_checkinsGroup_description":
+	{
+		"message": "This feature currently has no end-point for the average user.  Enabling this will poll the Google Map's Places API every time a fresh location is given by the Geolocation Watcher.  The results will be placed in the array document.places and include all 'Places' that are within 100+accuracy meters of the coordinates issued by the geolocation watcher.  To check in to the place, you will have to run the function checkIn from the developer console with the reference string of the place as the only parameter.",
+		"description": "Yeah... about that..."
+	},
+	
+	"creditsTab":
+	{
+		"message": "Credits",
+		"description": "Name of the tab for acknowleding people who've helped the project"
+	},
+	"creditsTab_contributorsGroup":
+	{
+		"message": "Contributors",
+		"description": "Name of the group of people who have contributed files to the project"
+	},
+	"creditsTab_contributorsGroup_list":
+	{
+		"message": "<dl><dt><a href=\"mailto:campadrenalin@gmail.com\">Philip Horger</a></dt><dd>Designed the beautiful icon we use.</dd><dt><a href=\"https://plus.google.com/107659033354431801334\">Yonathan Randolph</a></dt><dd>Programmed initial fixed location support</dd></dl>",
+		"description": "List of contributors"
+	},
+	"creditsTab_donorsGroup":
+	{
+		"message": "Donors",
+		"description": "Name of the group of people who have donated money for the continued work on the project"
+	},
+	"creditsTab_donorsGroup_list":
+	{
+		"message": "<dl><dt>Chris Lambert</dt><dd><a href=\"https://plus.google.com/117505026517758176964\">https://plus.google.com/117505026517758176964</a></dd><dt>Yonathan Randolph</dt><dd><a href=\"https://plus.google.com/107659033354431801334\">https://plus.google.com/107659033354431801334</a></dd></dl>",
+		"description": "List of donors"
+	},
+	"creditsTab_donateGroup":
+	{
+		"message": "",
+		"description": "Donate call-to-action"
+	}
+}
