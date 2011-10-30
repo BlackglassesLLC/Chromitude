@@ -9,18 +9,18 @@ var googleAuth = new OAuth2('google',{
 	api_scope: 'https://www.googleapis.com/auth/latitude.current.best https://maps.googleapis.com/maps/api/place/'
 });
 
-var clientSettings = {
-	get: function(setting)
+var clientSettings = new function() {
+	this.get = function(setting)
 	{
 		return localStorage[setting];
-	},
-	put: function(setting,value,ifnotexists)
+	}
+	this.put = function(setting,value,ifnotexists)
 	{
 		if(!(ifnotexists && this.exists(setting)))
 			localStorage[setting] = value;
 		return localStorage[setting];
-	},
-	exists: function(setting)
+	}
+	this.exists = function(setting)
 	{
 		if(localStorage[setting] == undefined) return false;
 		else return true;
@@ -62,6 +62,8 @@ function updatePosition(pos)
 			"altitudeAccuracy": pos.coords.altitudeAccuracy
 		}
 	};
+	
+	
 }
 
 </script>
