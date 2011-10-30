@@ -2,7 +2,22 @@
 <script src="/oauth2/oauth2.js"></script>
 <script src="settings.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+<script src="fancy-settings/lib/store.js"></script>
 <script>
+
+var clientSettings = new Store("settings", {
+	// Small If Statements for carrying over settings from 0.x versions
+	"state": (localStorage["state"] == "off") ? false : true, // True for On, False for Off
+	"use_fixed_location": (localStorage["use_fixed_location"] == "on") ? true : false,
+	"fixed_location": (localStorage["fixed_location"]) ? localStorage["fixed_location"] : "",
+	"show_notification": (localStorage["show_notification"] == "on") ? true : false,
+	// New Features
+	"use_checkins": true,
+	"exp_use_checkins": false,
+	"has_shown_donate": false,
+	"has_shown_v1.0": false,
+	"use_highest_accuracy": true
+});
 
 var googleAuth = new OAuth2('google',{
 	client_id: settings.consumer_key,
@@ -10,39 +25,11 @@ var googleAuth = new OAuth2('google',{
 	api_scope: 'https://www.googleapis.com/auth/latitude.current.best http://maps.google.com/maps/feeds/'
 });
 
-var clientSettings = new function() {
-	this.get = function(setting)
-	{
-		return localStorage[setting];
-	}
-	this.put = function(setting,value,ifnotexists)
-	{
-		if(!(ifnotexists && this.exists(setting)))
-			localStorage[setting] = value;
-		return localStorage[setting];
-	}
-	this.exists = function(setting)
-	{
-		if(localStorage[setting] == undefined) return false;
-		else return true;
-	}
-	// Defaults
-	this.put("state","on",true);
-	this.put("watch_location","on",true);
-	this.put("only_update_when_active","on",true);
-	this.put("use_checkins","on",true);
-	this.put("show_notification","off",true);
-	this.put("has_shown_donate","false",true);
-	this.put("use_fixed_location","off",true);
-	this.put("has_alerted_v2","false",true);
-	this.put("use_highest_accuracy","on",true);
-};
-
 googleAuth.authorize(runSetup);
 
 function updateAction()
 {
-	if(clientSettings.get("state") == "on")
+	if(clientSettings.get("state"))
 	{
 		chrome.browserAction.setIcon({path:"icons/32-on.png"});
 		chrome.browserAction.setTitle({title:chrome.i18n.getMessage("turnOff")});
@@ -52,14 +39,16 @@ function updateAction()
 		chrome.browserAction.setIcon({path:"icons/32-off.png"});
 		chrome.browserAction.setTitle({title:chrome.i18n.getMessage("turnOn")});
 	}
+	if(clientSettings.get("use_fixed_location"))
+		chrome.browserAction.setTitle({title:chrome.i18n.getMessage("clickToUpdate")});
 }
 
 function toggleState()
 {
-	if(clientSettings.get("state") == "on")
-		clientSettings.put("state","off");
+	if(clientSettings.get("state"))
+		clientSettings.set("state",false);
 	else
-		clientSettings.put("state","on");
+		clientSettings.set("state",true);
 	runSetup();
 }
 
@@ -69,22 +58,22 @@ function runSetup()
 
 	if(document.updateWatch) navigator.geolocation.clearWatch(document.updateWatch);
 	
-	if(clientSettings.get("state") == "off") { document.lastPosition = undefined;return; }
+	if(!clientSettings.get("state")) { document.lastPosition = undefined;return; }
 
-	if(clientSettings.get("use_fixed_location") == "on")
+	if(clientSettings.get("use_fixed_location"))
 	{	
-		var location = JSON.parse(clientSettings.get("fixed_location"));
+		var location = clientSettings.get("fixed_location");
 		location.timestamp = Math.floor(+new Date);
 		location.accuracy = 10;
 		document.lastPosition = location;
 		updatePosition(location);
 		
+		clientSettings.set("state",false);
+		updateAction();
+		
 		return;
 	};
-	
-	if(clientSettings.get("use_highest_accuracy") == "on") highAccuracy = true;
-	else highAccuracy = false;
-	
+
 	document.updateWatch = navigator.geolocation.watchPosition(function(pos)
 	{
 		
@@ -95,6 +84,9 @@ function runSetup()
 		// Update the Position
 		updatePosition(pos,function(response)
 		{
+			// Get Checkin Data
+			if(!clientSettings.get("exp_use_checkins")) return; // Don't Use Checkins
+			
 			xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function()
 			{
@@ -110,8 +102,17 @@ function runSetup()
 			
 		});
 		
-	},function() { }, { enableHighAccuracy: highAccuracy });
+	},function() { }, { enableHighAccuracy: clientSettings.get("use_highest_accuracy") });
 }
+
+function changedSetupAffectingVariable()
+{
+	alert('Variable Changed');
+	runSetup();
+}
+
+clientSettings.watch("use_fixed_location",changedSetupAffectingVariable);
+clientSettings.watch("use_highest_accuracy",changedSetupAffectingVariable);
 
 function checkIn(reference)
 {

@@ -1,12 +1,13 @@
 {
-	"name": "__MSG_extensionName__,
+	"name": "__MSG_extensionName__",
 	"version": "1.0",
 	
 	"description": "__MSG_description__",
+	"default_locale": "en",
 
 	"background_page": "chromitude.html",
 
-	"options_page": "options.html",
+	"options_page": "fancy-settings/index.html",
 
 	"icons":
 	{

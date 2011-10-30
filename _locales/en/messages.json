@@ -32,5 +32,68 @@
 				"content": "Chromitude"
 			}
 		}
+	},
+	"clickToUpdate":
+	{
+		"message": "Click to update your location",
+		"description": "When a user opts in to using a fixed location, this tooltip will occur, with the Chromitude Icon always appearing 'off' by default."
+	},
+	
+	
+	"locationTab":
+	{
+		"message": "Location",
+		"description": "Location Tab in Settings"
+	},
+	"locationTab_accuracyGroup":
+	{
+		"message": "Accuracy",
+		"description": "Accuracy Group name in Location Tab in Settings"
+	},
+	"locationTab_accuracyGroup_highAccuracyLabel":
+	{
+		"message": "Use the Highest Available Accuracy (May use more battery life)",
+		"description": "Enable GPS Sensor if available.  Should note that it will take battery life."
+	},
+	"locationTab_fixedLocationGroup":
+	{
+		"message": "Fixed Location",
+		"description": "Group Name for settings indicative of a stationary, fixed position."
+	},
+	"locationTab_fixedLocationGroup_description":
+	{
+		"message": "Setting a fixed location will disable watching for updates when your location changes.  Instead, this allows you to set a specific latitude and longitude of where you are located and changes the Chromitude icon in the extension bar from turning Chromitude on and off to updating your location to the specified coordinates.",
+		"description": "A description of how fixed location works and why one would use it."
+	},
+	"locationTab_fixedLocationGroup_checkboxLabel":
+	{
+		"message": "Use a fixed location instead of polling for new locations",
+		"description": "Checkbox for enabling fixed location."
+	},
+	"locationTab_fixedLocationGroup_locationLabel":
+	{
+		"message": "Coordinates:",
+		"description": "Prompt for the coordinates of a fixed location."
+	},
+	"locationTab_fixedLocationGroup_locationPlaceholder":
+	{
+		"message": "longitude,latitude",
+		"description": "Placeholder text to guide the user on what to enter for a fixed location."
+	},
+	
+	"experimentalFeaturesTab":
+	{
+		"message": "Experimental Features",
+		"description": "Experimental Features Tab in Settings"
+	},
+	"experimentalFeaturesTab_checkinsGroup":
+	{
+		"message": "Check-Ins",
+		"description": "Group Name for Check-Ins"
+	},
+	"experimentalFeaturesTab_checkinsGroup_checkboxLabel":
+	{
+		"message": "Enable Check-In Support",
+		"description": "Checkbox for enabling check-in support"
 	}
 }

@@ -1,5 +1,47 @@
 // SAMPLE
 this.manifest = {
+	"name": chrome.i18n.getMessage("extensionName"),
+	"icon": "../icons/32-on.png",
+	"settings": [
+		{
+			"tab": chrome.i18n.getMessage("locationTab"),
+			"name": "use_highest_accuracy",
+			"type": "checkbox",
+			"label": chrome.i18n.getMessage("locationTab_accuracyGroup_highAccuracyLabel"),
+			"group": chrome.i18n.getMessage("locationTab_accuracyGroup")
+		},
+		{
+			"tab": chrome.i18n.getMessage("locationTab"),
+			"type": "description",
+			"text": chrome.i18n.getMessage("locationTab_fixedLocationGroup_description"),
+			"group": chrome.i18n.getMessage("locationTab_fixedLocationGroup")
+		},
+		{
+			"tab": chrome.i18n.getMessage("locationTab"),
+			"name": "use_fixed_location",
+			"type": "checkbox",
+			"label": chrome.i18n.getMessage("locationTab_fixedLocationGroup_checkboxLabel"),
+			"group": chrome.i18n.getMessage("locationTab_fixedLocationGroup")
+		},
+		{
+			"tab": chrome.i18n.getMessage("locationTab"),
+			"name": "fixed_location",
+			"type": "text",
+			"label": chrome.i18n.getMessage("locationTab_fixedLocationGroup_locationLabel"),
+			"text": chrome.i18n.getMessage("locationTab_fixedLocationGroup_locationPlaceholder"),
+			"group": chrome.i18n.getMessage("locationTab_fixedLocationGroup")
+		},
+		{
+			"tab": chrome.i18n.getMessage("experimentalFeaturesTab"),
+			"group": chrome.i18n.getMessage("experimentalFeaturesTab_checkinsGroup"),
+			"name": "exp_use_checkins",
+			"type": "checkbox",
+			"label": chrome.i18n.getMessage("experimentalFeaturesTab_checkinsGroup_checkboxLabel")
+		}
+	]
+};
+/*
+this.manifest = {
     "name": "My Extension",
     "icon": "icon.png",
     "settings": [
@@ -132,3 +174,4 @@ this.manifest = {
         ]
     ]
 };
+*/

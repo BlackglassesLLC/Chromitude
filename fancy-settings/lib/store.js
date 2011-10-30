@@ -7,6 +7,7 @@
     var Store = this.Store = function (name, defaults) {
         var key;
         this.name = name;
+		this.watchers = {};
         
         if (defaults !== undefined) {
             for (key in defaults) {
@@ -15,6 +16,28 @@
                 }
             }
         }
+		
+		if(chrome && chrome.extension)
+		{
+			var storeStuff = this;
+			chrome.extension.onRequest.addListener(
+				function(request,sender,sendResponse)
+				{
+					console.log(request.type,'store.' + storeStuff.name + '.callwatch');
+					if(request.type && request.type == 'store.' + storeStuff.name + '.callwatch')
+					{
+						// Callback for Watchers
+						var name = request.name;
+						if(storeStuff.watchers[name])
+						{
+							var val = storeStuff.get(name);
+							for(i = 0;i < storeStuff.watchers[name].length;++i)
+								storeStuff.watchers[name][i](name);
+						}
+					}
+				}
+			);
+		}
     };
     
     Store.prototype.get = function (name) {
@@ -26,6 +49,11 @@
             return null;
         }
     };
+	
+	Store.prototype.watch = function(name,callback) {
+		if(!this.watchers[name]) this.watchers[name] = [];
+		this.watchers[name][this.watchers[name].length] = callback;
+	};
     
     Store.prototype.set = function (name, value) {
         if (value === undefined) {
@@ -42,6 +70,12 @@
             }
             
             localStorage.setItem("store." + this.name + "." + name, value);
+			
+			if(chrome && chrome.extension)
+			{
+				var storeName = this.name;
+				chrome.extension.sendRequest({type: "store." + storeName + ".callwatch", 'name': name});
+			}
         }
         
         return this;
