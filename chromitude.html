@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<script src="/oauth2/oauth2.js"></script>
+<script src="jquery.js"></script>
+<script src="oauth2/oauth2.js"></script>
 <script src="settings.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
 <script src="fancy-settings/lib/store.js"></script>
 <script>
+$(document).ready(function()
+{
 
 var clientSettings = new Store("settings", {
 	// Small If Statements for carrying over settings from 0.x versions
@@ -183,4 +186,5 @@ function updatePosition(pos,success)
 
 chrome.browserAction.onClicked.addListener(function(tab) { toggleState(); });
 
+});
 </script>
