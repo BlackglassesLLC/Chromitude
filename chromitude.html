@@ -19,6 +19,14 @@ var clientSettings = new Store("settings", {
 	"use_highest_accuracy": true
 });
 
+function changedSetupAffectingVariable()
+{
+	runSetup();
+}
+
+clientSettings.watch("use_fixed_location",changedSetupAffectingVariable);
+clientSettings.watch("use_highest_accuracy",changedSetupAffectingVariable);
+
 var googleAuth = new OAuth2('google',{
 	client_id: settings.consumer_key,
 	client_secret: settings.consumer_secret,
@@ -104,15 +112,6 @@ function runSetup()
 		
 	},function() { }, { enableHighAccuracy: clientSettings.get("use_highest_accuracy") });
 }
-
-function changedSetupAffectingVariable()
-{
-	alert('Variable Changed');
-	runSetup();
-}
-
-clientSettings.watch("use_fixed_location",changedSetupAffectingVariable);
-clientSettings.watch("use_highest_accuracy",changedSetupAffectingVariable);
 
 function checkIn(reference)
 {
