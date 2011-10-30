@@ -10,7 +10,7 @@ var clientSettings = new Store("settings", {
 	"state": (localStorage["state"] == "off") ? false : true, // True for On, False for Off
 	"use_fixed_location": (localStorage["use_fixed_location"] == "on") ? true : false,
 	"fixed_location": (localStorage["fixed_location"]) ? localStorage["fixed_location"] : "",
-	"show_notification": (localStorage["show_notification"] == "on") ? true : false,
+	"show_notifications": (localStorage["show_notification"] == "on") ? true : false,
 	// New Features
 	"use_checkins": true,
 	"exp_use_checkins": false,
@@ -88,7 +88,7 @@ function runSetup()
 		{
 			clientSettings.set("state",false);
 			updateAction();
-		},1000);
+		},1500);
 		
 		return;
 	};
@@ -103,6 +103,18 @@ function runSetup()
 		// Update the Position
 		updatePosition(pos,function(response)
 		{
+			// Tel the User
+			if(clientSettings.get("show_notifications"))
+			{
+				var notification = webkitNotifications.createNotification(
+					'icons/64-on.png',
+					chrome.i18n.getMessage("extensionName"),
+					chrome.i18n.getMessage("locationHasBeenUpdated")
+				);
+				notification.show();
+				setTimeout(function() { notification.cancel(); },5000);
+			};
+			
 			// Get Checkin Data
 			if(!clientSettings.get("exp_use_checkins")) return; // Don't Use Checkins
 			
