@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <script src="/oauth2/oauth2.js"></script>
 <script src="settings.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
 <script>
 
 var googleAuth = new OAuth2('google',{
 	client_id: settings.consumer_key,
 	client_secret: settings.consumer_secret,
-	api_scope: 'https://www.googleapis.com/auth/latitude.current.best https://maps.googleapis.com/maps/api/place/'
+	api_scope: 'https://www.googleapis.com/auth/latitude.current.best'
 });
 
 var clientSettings = new function() {
@@ -27,15 +28,10 @@ var clientSettings = new function() {
 	}
 	// Defaults
 	this.put("state","on",true);
-	if(!this.exists("watchLoc") || this.get("watchLoc") == "on")
-		this.put("watch_location","on",true);
-	else
-		this.put("watch_location","off",true);
-	localStorage.removeItem("watchLoc"); // Renamed to watch_location.  Cleanup from v1.
+	this.put("watch_location","on",true);
 	this.put("only_update_when_active","on",true);
+	this.put("use_checkins","on",true);
 	this.put("show_notification","off",true);
-	this.put("update_int","5",true);
-	this.put("update_type","m",true);
 	this.put("has_shown_donate","false",true);
 	this.put("use_fixed_location","off",true);
 	this.put("has_alerted_v2","false",true);
