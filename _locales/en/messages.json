@@ -146,5 +146,10 @@
 	{
 		"message": "<dl><dt>Chris Lambert</dt><dd><a href=\"https://plus.google.com/117505026517758176964\">https://plus.google.com/117505026517758176964</a></dd><dt>Yonathan Randolph</dt><dd><a href=\"https://plus.google.com/107659033354431801334\">https://plus.google.com/107659033354431801334</a></dd></dl>",
 		"description": "List of donors"
+	},
+	"creditsTab_donateGroup":
+	{
+		"message": "",
+		"description": "Donate call-to-action"
 	}
 }
