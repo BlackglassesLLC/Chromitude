@@ -6,7 +6,7 @@
 	},
 	"description":
 	{
-		"message": "Google Latitudeの非公式な拡張機能です。  バックグラウンドで実行されます。",
+		"message": "Google Latitudeの非公式な拡張機能です。  バックグラウンドで場所を更新します。",
 		"description": "A Description of the Extension"
 	},
 	"turnOn":
