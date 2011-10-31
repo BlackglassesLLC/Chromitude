@@ -1,7 +1,7 @@
 {
 	"extensionName":
 	{
-		"message": "クロミテゥード",
+		"message": "Chromitude",
 		"description": "Name of the Extension"
 	},
 	"description":
@@ -17,7 +17,7 @@
 		{
 			"chromitude":
 			{
-				"content": "クロミテゥード"
+				"content": "Chromitude"
 			}
 		}
 	},
@@ -29,7 +29,7 @@
 		{
 			"chromitude":
 			{
-				"content": "クロミテゥード"
+				"content": "Chromitude"
 			}
 		}
 	},
