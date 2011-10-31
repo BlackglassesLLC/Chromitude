@@ -12,7 +12,7 @@ var clientSettings = new Store("settings", {
 	// Small If Statements for carrying over settings from 0.x versions
 	"state": (localStorage["state"] == "off") ? false : true, // True for On, False for Off
 	"use_fixed_location": (localStorage["use_fixed_location"] == "on") ? true : false,
-	"fixed_location": (localStorage["fixed_location"]) ? localStorage["fixed_location"] : "",
+	"fixed_location": (localStorage["fixed_location"]) ? (JSON.parse('{"coords":{"latitude":0,"longitude":0}}')).coords.latitude + ',' + (JSON.parse('{"coords":{"latitude":0,"longitude":0}}')).coords.longitude : "",
 	"show_notifications": (localStorage["show_notification"] == "on") ? true : false,
 	// New Features
 	"use_checkins": true,
