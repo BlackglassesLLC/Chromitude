@@ -80,6 +80,7 @@ function runSetup()
 		var coords = clientSettings.get("fixed_location").split(',');
 		if(coords[0] && coords[1])
 		{
+			location = { coords: { } };
 			location.coords.latitude = coords[0];
 			location.coords.longitude = coords[1];
 			location.timestamp = Math.floor(+new Date);
