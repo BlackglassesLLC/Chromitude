@@ -6,41 +6,41 @@
 	},
 	"description":
 	{
-		"message": "An unofficial Google Latitude Checkin App for Chrome.  Runs in the background.",
+		"message": "Google Latitudeの非公式な拡張機能です。  バックグラウンドで実行されます。",
 		"description": "A Description of the Extension"
 	},
 	"turnOn":
 	{
-		"message": "Turn $CHROMITUDE$ on",
+		"message": "$CHROMITUDE$をオンにする",
 		"description": "Turn on message for Chromitude icon tooltip",
 		"placeholders":
 		{
 			"chromitude":
 			{
-				"content": "Chromitude"
+				"content": "クロミテゥード"
 			}
 		}
 	},
 	"turnOff":
 	{
-		"message": "Turn $CHROMITUDE$ off",
+		"message": "$CHROMITUDE$をオフにする",
 		"description": "Turn off message for Chromitude icon tooltip",
 		"placeholders":
 		{
 			"chromitude":
 			{
-				"content": "Chromitude"
+				"content": "クロミテゥード"
 			}
 		}
 	},
 	"clickToUpdate":
 	{
-		"message": "Click to update your location",
+		"message": "場所を更新する事をクリックする",
 		"description": "When a user opts in to using a fixed location, this tooltip will occur, with the Chromitude Icon always appearing 'off' by default."
 	},
 	"locationHasBeenUpdated":
 	{
-		"message": "Your location has been updated.",
+		"message": "場所を更新した。",
 		"description": "Displayed in a Toast Notification when the user's location has been updated."
 	},
 	
