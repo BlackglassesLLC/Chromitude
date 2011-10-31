@@ -177,7 +177,7 @@ function updatePosition(pos,success)
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function()
 	{
-		if(xhr.readyState == 4 && xhr.status == 200) success(JSON.parse(xhr.responseText));
+		if(xhr.readyState == 4 && xhr.status == 200 && success !== undefined) success(JSON.parse(xhr.responseText));
 	};
 	xhr.open('POST','https://www.googleapis.com/latitude/v1/currentLocation?sensor=true&key=' + settings.simple_key + '&oauth_token=' + googleAuth.getAccessToken());
 	xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken());
