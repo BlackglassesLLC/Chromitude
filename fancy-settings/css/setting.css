@@ -5,9 +5,10 @@
 */
 .tab-content h2 {
     margin: 0;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
+	padding-top: 13px;
     font-size: 26px;
-    color: #707070;
+    color: #53637D;
     line-height: 1;
 }
 
@@ -29,6 +30,14 @@
 .setting.bundle {
     max-width: 600px;
     margin-bottom: 5px;
+}
+
+.setting.label.textarea {
+    display: block;
+}
+
+.setting.element.textarea {
+    width:100%;
 }
 
 .setting.bundle.list-box {
