@@ -1,0 +1,169 @@
+{
+	"extensionName":
+	{
+		"message": "Chromitude",
+		"description": "Name of the Extension"
+	},
+	"description":
+	{
+		"message": "Uma app não-oficial para fazer Check-ins no Google Latitude a partir do Chrome. Se executa em segundo-plano.",
+		"description": "A Description of the Extension"
+	},
+	"turnOn":
+	{
+		"message": "Ativar o $CHROMITUDE$",
+		"description": "Turn on message for Chromitude icon tooltip",
+		"placeholders":
+		{
+			"chromitude":
+			{
+				"content": "Chromitude"
+			}
+		}
+	},
+	"turnOff":
+	{
+		"message": "Desativar o $CHROMITUDE$",
+		"description": "Turn off message for Chromitude icon tooltip",
+		"placeholders":
+		{
+			"chromitude":
+			{
+				"content": "Chromitude"
+			}
+		}
+	},
+	"clickToUpdate":
+	{
+		"message": "Clique para atualizar sua localização",
+		"description": "When a user opts in to using a fixed location, this tooltip will occur, with the Chromitude Icon always appearing 'off' by default."
+	},
+	"locationHasBeenUpdated":
+	{
+		"message": "Sua localização foi atualizada.",
+		"description": "Displayed in a Toast Notification when the user's location has been updated."
+	},
+	
+	"settings":
+	{
+		"message": "Definições",
+		"description": "Settings Page Header"
+	},
+	"settings_search":
+	{
+		"message": "Pesquisa",
+		"description": "Settings Page Search Label"
+	},
+	"settings_searchPlaceholder":
+	{
+		"message": "Pesquisar...",
+		"description": "Settings Page Search Placeholder"
+	},
+	"generalTab":
+	{
+		"message": "Geral",
+		"description": "General Settings tab"
+	},
+	"generalTab_accuracyGroup":
+	{
+		"message": "Precisão",
+		"description": "Accuracy Group name"
+	},
+	"generalTab_accuracyGroup_highAccuracyLabel":
+	{
+		"message": "Utilizar a Maior Precisão Disponível (Consome mais energia)",
+		"description": "Enable GPS Sensor if available.  Should note that it will take battery life."
+	},
+	"generalTab_notificationsGroup":
+	{
+		"message": "Notificações",
+		"description": "Notification Group name"
+	},
+	"generalTab_notificationsGroup_notifyOnUpdateLabel":
+	{
+		"message": "Notificar-me quando minha posição é atualizada",
+		"description": "Checkbox to notify a user when their location is updated via a toast notification"
+	},
+	"generalTab_fixedLocationGroup":
+	{
+		"message": "Localização Fixa",
+		"description": "Group Name for settings indicative of a stationary, fixed position."
+	},
+	"generalTab_fixedLocationGroup_description":
+	{
+		"message": "Ao ter uma localização fixa, o Chromitude não irá monitorizar mais a sua localização. Ao invés disso, esta definição lhe permite estabelecer uma coordenada específica e altera a função do ícone do Chromitude para simplesmente atualizar a sua localização para as coordenadas estabelecidas.",
+		"description": "A description of how fixed location works and why one would use it."
+	},
+	"generalTab_fixedLocationGroup_checkboxLabel":
+	{
+		"message": "Utilizar uma localização fixa em vez de monitorizar a minha localização",
+		"description": "Checkbox for enabling fixed location."
+	},
+	"generalTab_fixedLocationGroup_locationLabel":
+	{
+		"message": "Coordenadas:",
+		"description": "Prompt for the coordinates of a fixed location."
+	},
+	"generalTab_fixedLocationGroup_locationPlaceholder":
+	{
+		"message": "longitude,latitude",
+		"description": "Placeholder text to guide the user on what to enter for a fixed location."
+	},
+	
+	"experimentalFeaturesTab":
+	{
+		"message": "Funções Experimentais",
+		"description": "Experimental Features Tab in Settings"
+	},
+	"experimentalFeaturesTab_description":
+	{
+		"message": "Funções Experimentais são aquelas incompletas, instáveis, ou essencialmente inúteis que ainda não estão preparadas para uso público. Algumas poderão ser apenas alcançáveis através da console para programadores na extensão em si. Como resultado, estas funções não são para todo o mundo, mas se quiser, elas estão aqui para quem quiser experimentar e brincar com o código da extensão.",
+		"description": "Description of what experimental features are."
+	},
+	"experimentalFeaturesTab_checkinsGroup":
+	{
+		"message": "Check-Ins",
+		"description": "Group Name for Check-Ins"
+	},
+	"experimentalFeaturesTab_checkinsGroup_checkboxLabel":
+	{
+		"message": "Ativar Check-ins",
+		"description": "Checkbox for enabling check-in support"
+	},
+	"experimentalFeaturesTab_checkinsGroup_description":
+	{
+		"message": "De momento, esta função não tem uso para o utilizador. Depois de ativada, esta função irá 'falar' com a API 'Places' do Google Maps cada vez que uma nova localização é dada pelo monitor de localização. Os resultados desta comunicação são depois introduzidos na lista document.places e incluirá todos os sítios (ou 'Places' do Google Maps) que estão num raio de 100 metros (+ a precisão dada) a partir das coordenadas dadas pelo monitor de localização. Para fazer check-in num destes sítios, precisará de usar a funcão 'checkIn' na console para programadores, com a String de referência como único parametro.",
+		"description": "Yeah... about that..."
+	},
+	
+	"creditsTab":
+	{
+		"message": "Créditos",
+		"description": "Name of the tab for acknowleding people who've helped the project"
+	},
+	"creditsTab_contributorsGroup":
+	{
+		"message": "Colaboradores",
+		"description": "Name of the group of people who have contributed files to the project"
+	},
+	"creditsTab_contributorsGroup_list":
+	{
+		"message": "<dl><dt><a href=\"mailto:campadrenalin@gmail.com\">Philip Horger</a></dt><dd>Fez o nosso fantástico ícone</dd><dt><a href=\"https://plus.google.com/107659033354431801334\">Yonathan Randolph</a></dt><dd>Responsável pela programação inicial do suporte para localizações fixas</dd></dl>",
+		"description": "List of contributors"
+	},
+	"creditsTab_donorsGroup":
+	{
+		"message": "Doadores",
+		"description": "Name of the group of people who have donated money for the continued work on the project"
+	},
+	"creditsTab_donorsGroup_list":
+	{
+		"message": "<dl><dt>Chris Lambert</dt><dd><a href=\"https://plus.google.com/117505026517758176964\">https://plus.google.com/117505026517758176964</a></dd><dt>Yonathan Randolph</dt><dd><a href=\"https://plus.google.com/107659033354431801334\">https://plus.google.com/107659033354431801334</a></dd></dl>",
+		"description": "List of donors"
+	},
+	"creditsTab_donateGroup":
+	{
+		"message": "",
+		"description": "Donate call-to-action"
+	}
+}

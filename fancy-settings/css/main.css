@@ -13,6 +13,7 @@ body {
 
 #sidebar {
     position: absolute;
+	z-index: 2;
     background-color: #EDEDED;
     background-image: linear-gradient(top, #EDEDED, #F5F5F5);
     background-image:
@@ -61,21 +62,24 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     text-align: right;
 }
 
-#tab-container .tab {
-    height: 28px;
+#tab-container .tab,
+body.searching #tab-container .tab.active {
+	background: transparent;
+	line-height: 1 !important;
+    height: 16px;
 	padding: 7px 0;
     padding-right: 25px;
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
     font-size: 13px;
     line-height: 28px;
-    color: #808080;
+    color: #426DC9;
     cursor: pointer;
+	text-shadow: none;
 }
 
 #search-container {
@@ -86,7 +90,11 @@ body {
 }
 
 #search-container input {
-    width: 130px;
+    position: relative;
+	z-index: 5;
+	margin: 0px;
+	font-size: 14px;
+	width: 226px;
 }
 
 #tab-container .tab.active, body.searching #search-container {
@@ -98,16 +106,9 @@ body {
     text-shadow: #BBCEE9 0 1px 1px;
 }
 
-body.searching #tab-container .tab.active {
-    background-color: transparent;
-    border-color: transparent;
-    color: #808080;
-    text-shadow: inherit;
-    box-shadow: none;
-}
-
 #content {
     position: absolute;
+	z-index: 1;
     top: 0;
     left: 220px;
     right: 0;
