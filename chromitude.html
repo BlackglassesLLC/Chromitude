@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<script src="jquery.js"></script>
-<script src="oauth2/oauth2.js"></script>
+<body onload="startProgram();">
 <script src="settings.js"></script>
+<script src="oauth2/oauth2.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
 <script src="fancy-settings/lib/store.js"></script>
 <script>
-$(document).ready(function()
+function startProgram()
 {
 
 var clientSettings = new Store("settings", {
@@ -31,6 +31,7 @@ clientSettings.watch("use_fixed_location",changedSetupAffectingVariable);
 clientSettings.watch("use_highest_accuracy",changedSetupAffectingVariable);
 clientSettings.watch("exp_use_checkins",function(value) { if(value) checkinRequest(); });
 
+console.log(settings);
 googleAuth = new OAuth2('google',{
 	client_id: settings.consumer_key,
 	client_secret: settings.consumer_secret,
@@ -189,5 +190,6 @@ function updatePosition(pos,success)
 
 chrome.browserAction.onClicked.addListener(function(tab) { toggleState(); });
 
-});
+};
 </script>
+</body>
