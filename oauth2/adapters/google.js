@@ -1,10 +1,11 @@
 OAuth2.adapter('google', {
   authorizationCodeURL: function(config) {
-    return 'https://accounts.google.com/o/oauth2/auth?\
-client_id={{CLIENT_ID}}&\
-redirect_uri={{REDIRECT_URI}}&\
-scope={{API_SCOPE}}&\
-response_type=code'
+    return ('https://accounts.google.com/o/oauth2/auth?' +
+      'client_id={{CLIENT_ID}}&' +
+      'redirect_uri={{REDIRECT_URI}}&' +
+      'scope={{API_SCOPE}}&' +
+      'access_type=offline&' +
+      'response_type=code')
         .replace('{{CLIENT_ID}}', config.clientId)
         .replace('{{REDIRECT_URI}}', this.redirectURL(config))
         .replace('{{API_SCOPE}}', config.apiScope);
@@ -15,11 +16,11 @@ response_type=code'
   },
 
   parseAuthorizationCode: function(url) {
-    var error = url.match(/\?error=(.+)/);
+    var error = url.match(/[&\?]error=([^&]+)/);
     if (error) {
       throw 'Error getting authorization code: ' + error[1];
     }
-    return url.match(/\?code=([\w\/\-]+)/)[1];
+    return url.match(/[&\?]code=([\w\/\-]+)/)[1];
   },
 
   accessTokenURL: function() {

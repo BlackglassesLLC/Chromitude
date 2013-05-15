@@ -1,43 +1,45 @@
 {
-	"name": "__MSG_extensionName__",
-	"version": "1.2.1",
-	
-	"description": "__MSG_description__",
-	"default_locale": "en",
+    "manifest_version": 2,
 
-	"background_page": "chromitude.html",
+    "name": "__MSG_extensionName__",
+    "version": "1.3",
 
-	"options_page": "fancy-settings/index.html",
+    "description": "__MSG_description__",
+    "default_locale": "en",
 
-	"icons":
-	{
-		"128": "icons/128-on.png",
-		"32":  "icons/32-on.png"
-	},
+    "background": {
+        "page": "chromitude.html",
+        "persistent": true
+    },
 
-	"browser_action":
-	{
-		"default_icon": "icons/32-off.png",
-		"default_title": "Turn Chromitude On"
-	},
-	
-	"content_scripts":
-	[{
-		"matches": ["http://www.google.com/robots.txt*"],
-		"js": ["oauth2/oauth2_inject.js"],
-		"run_at": "document_start"
-	}],
+    "options_page": "fancy-settings/index.html",
 
-	"permissions":
-	[
-		"geolocation",
-		"tabs",
-		"idle",
-		"unlimitedStorage",
-		"notifications",
-		"http://*.google.com/",
-		"https://*.google.com/",
-		"http://*.googleapis.com/",
-		"https://*.googleapis.com/"
-	]
+    "icons": {
+        "128": "icons/128-on.png",
+        "32": "icons/32-on.png"
+    },
+
+    "browser_action": {
+        "default_icon": "icons/32-off.png",
+        "default_title": "Turn Chromitude On"
+    },
+
+    "content_scripts":
+        [{
+            "matches": ["http://www.google.com/robots.txt*"],
+            "js": ["oauth2/oauth2_inject.js"],
+            "run_at": "document_start"
+        }],
+
+    "permissions": [
+        "geolocation",
+        "tabs",
+        "idle",
+        "unlimitedStorage",
+        "notifications",
+        "http://www.google.com/robots.txt*",
+        "https://www.googleapis.com/auth/latitude.current.best",
+        "https://www.googleapis.com/latitude/*",
+        "https://accounts.google.com/o/oauth2/token"
+    ]
 }
